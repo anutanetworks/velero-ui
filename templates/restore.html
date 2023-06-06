@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+  <script src="{{ url_for('static', filename='javascript/jquery-3.6.0.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='javascript/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='javascript/logout.js') }}"></script>
+  <script src="{{ url_for('static', filename='javascript/loadNavbar.js') }}"></script>
+  <title>Velero Backup and Schedule Manager - Restore</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div id="navbar" class="col-md-2 p-3 d-flex flex-column" style="min-height: 100vh;"></div>
+      <main role="main" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <header class="page-header">
+          <h1 class="page-title">Restore</h1>
+        </header>
+        <div id="pageContent">
+          <div class="table-container">
+            <div class="buttons-container">
+              <button type="button" class="btn btn-primary" id="listRestoresBtn">List Restores</button>
+              <button type="button" class="btn btn-danger" id="deleteSelectedRestoreBtn">Delete Selected</button>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>SELECT</th>
+                  <th>NAME</th>
+                  <th>BACKUP</th>
+                  <th>STATUS</th>
+                  <th>STARTED</th>
+                  <th>COMPLETED</th>
+                  <th>ERRORS</th>
+                  <th>WARNINGS</th>
+                  <th>CREATED</th>
+                  <th>SELECTOR</th>
+                  <th>ACTIONS</th>
+                </tr>
+              </thead>
+              <tbody id="restoreTableBody">
+              </tbody>
+            </table>
+            <nav aria-label="Page navigation">
+              <ul class="pagination" id="restorePagination"></ul>
+            </nav>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Restore Logs Modal -->
+  <div class="modal fade" id="restoreLogsModal" tabindex="-1" role="dialog" aria-labelledby="restoreLogsModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="restoreLogsModalLabel">Restore Logs</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="restoreLogsModalBody">
+          <div class="spinner-border text-primary d-none" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <pre id="restoreLogs"></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Restore Describe Modal -->
+  <div class="modal fade" id="restoreDescribeModal" tabindex="-1" role="dialog" aria-labelledby="
+restoreDescribeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="restoreDescribeModalLabel">Restore Describe</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body" id="restoreDescribeModalBody">
+          <div class="spinner-border text-primary d-none" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <pre id="restoreDescribe"></pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <script src="{{ url_for('static', filename='javascript/config.js') }}" type="module"></script>
+  <script src="{{ url_for('static', filename='javascript/utils.js') }}" type="module"></script>
+  <script src="{{ url_for('static', filename='javascript/restore.js') }}" type="module"></script>
+</body>
+
+</html>

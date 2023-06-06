@@ -1,0 +1,66 @@
+.page-header {
+  background-color: #007bff;
+  color: white;
+  padding: 20px 0;
+  margin-bottom: 30px;
+}
+
+.page-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.table-container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  text-align: center;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 20px auto;
+  width: 100%;
+  text-align: center;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 20px;
+  width: 80%;
+}
+
+#backupTableContainer,
+#schedulesTableContainer {
+  margin: 20px 0;
+  width: 80%;
+  margin-left: 0;
+}
+
+#backupTable th:last-child,
+#backupTable td:last-child {
+  text-align: center;
+}
+
+pre {
+  white-space: pre-wrap;
+  max-height: 70vh;
+}

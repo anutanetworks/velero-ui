@@ -1,0 +1,17 @@
+<div class="my-2">
+    <nav class="nav flex-column bg-light border-end shadow-sm vh-100">
+        <div class="navbar-brand p-3">Velero Manager</div>
+        <a class="nav-link" href="{{ url_for('serve_index') }}">Dashboard</a>
+        <a class="nav-link" href="{{ url_for('serve_backup') }}">Backup</a>
+        <a class="nav-link" href="{{ url_for('serve_restore') }}">Restore</a>
+        <a class="nav-link" href="{{ url_for('serve_schedule') }}">Schedules</a>
+        <a class="nav-link" href="{{ url_for('serve_settings') }}">Settings</a>
+        <div class="my-3"></div>
+        {% if use_auth %}
+        <button class="btn btn-danger w-50 " onclick="logout()">Logout</button>
+        {% endif %}
+        <div style="padding-top: 10px; padding-left: 10px;">
+            <p class="text-muted small mb-0">Version: {{ app_version }}</p>
+        </div>
+    </nav>
+</div>

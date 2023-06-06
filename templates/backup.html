@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <script src="{{ url_for('static', filename='javascript/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/logout.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/loadNavbar.js') }}"></script>
+    <title>Velero Backup and Schedule Manager - Backup</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div id="navbar" class="col-md-2 p-3 d-flex flex-column" style="min-height: 100vh;"></div>
+            <main role="main" class="col-md-9 ms-sm-auto col-lg-10 px-md-4 my-3">
+                <header class="page-header">
+                    <h1 class="page-title">Backups</h1>
+                </header>
+                <div id="pageContent">
+                    <!-- The content of the backup page should be placed here -->
+                    <div class="table-container">
+                        <div class="buttons-container">
+                            <button type="button" class="btn btn-primary" id="listBackupsBtn">List Backups</button>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#createBackupModal">Create
+                                Backup
+                            </button>
+                            <button type="button" class="btn btn-danger" id="deleteSelectedBtn">Delete Selected</button>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>SELECT</th>
+                                    <th>NAME</th>
+                                    <th>STATUS</th>
+                                    <th>ERRORS</th>
+                                    <th>WARNINGS</th>
+                                    <th>CREATED</th>
+                                    <th>EXPIRES</th>
+                                    <th>STORAGE LOCATION</th>
+                                    <th>SELECTOR</th>
+                                    <th>ACTIONS</th>
+                                </tr>
+                            </thead>
+                            <tbody id="backupTableBody">
+                            </tbody>
+                        </table>
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination" id="backupPagination"></ul>
+                        </nav>
+                    </div>
+                    <!-- Place the backup table and buttons from the original file here -->
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Backup Logs Modal -->
+    <div class="modal fade" id="backupLogsModal" tabindex="-1" role="dialog" aria-labelledby="backupLogsModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="backupLogsModalLabel">Backup Logs</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="backupLogsModalBody">
+                    <div class="spinner-border text-primary d-none" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <pre id="backupLogs"></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Backup Describe Modal -->
+    <div class="modal fade" id="backupDescribeModal" tabindex="-1" role="dialog"
+        aria-labelledby="backupDescribeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="backupDescribeModalLabel">Backup Describe</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="backupDescribeModalBody">
+                    <div class="spinner-border text-primary d-none" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <pre id="backupDescribe"></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Backup Modal -->
+    <div class="modal fade" id="createBackupModal" tabindex="-1" aria-labelledby="createBackupModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createBackupModalLabel">Create Backup</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="createBackupForm">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="backupName" class="form-label">Backup Name</label>
+                            <input type="text" class="form-control" id="backupName" required>
+                            <div class="invalid-feedback">
+                                Please provide a valid Backup Name.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="optionalParameters" class="form-label">Optional Parameters</label>
+                            <input type="text" class="form-control" id="optionalParameters" maxlength="200">
+                            <small class="form-text text-muted">ex. --include-namespaces velero --ttl 720h</small>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="submitCreateBackup" disabled>Create Backup
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Restore Form Modal -->
+    <div class="modal fade" id="restoreFormModal" tabindex="-1" role="dialog" aria-labelledby="restoreFormModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="restoreFormModalLabel">Restore Backup</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="restoreForm">
+                        <div class="form-group">
+                            <label for="restoreBackupName">Backup Name</label>
+                            <input type="text" class="form-control" id="restoreBackupName" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="restoreOptionalParameters">Optional Parameters</label>
+                            <input type="text" class="form-control" id="restoreOptionalParameters"
+                                placeholder="Enter optional parameters" maxlength="200">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="confirmRestore">Confirm Restore</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='javascript/config.js') }}" type="module"></script>
+    <script src="{{ url_for('static', filename='javascript/utils.js') }}" type="module"></script>
+    <script src="{{ url_for('static', filename='javascript/backup.js') }}" type="module"></script>
+</body>
+
+</html>

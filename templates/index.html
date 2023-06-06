@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <title>Velero Backup and Schedule Manager - Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div id="navbar" class="col-md-2 p-3 d-flex flex-column" style="min-height: 100vh;"></div>
+            <main role="main" class="col-md-9 ms-sm-auto col-lg-10 px-md-4 my-3">
+                <header class="page-header">
+                    <h1 class="page-title">Dashboard</h1>
+                </header>
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-header bg-primary text-white">
+                                Backups
+                            </div>
+                            <div class="card-body">
+                                <div id="totalBackups"></div>
+                                <hr>
+                                <div id="backupsByStatus"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-header bg-primary text-white">
+                                Schedules
+                            </div>
+                            <div class="card-body">
+                                <div id="totalSchedules"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='javascript/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/logout.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/loadNavbar.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/config.js') }}" type="module"></script>
+    <script src="{{ url_for('static', filename='javascript/utils.js') }}" type="module"></script>
+    <script src="{{ url_for('static', filename='javascript/dashboard.js') }}" type="module"></script>
+</body>
+
+</html>
