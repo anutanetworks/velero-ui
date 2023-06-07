@@ -6,14 +6,13 @@ Velero-UI is a web-based graphical user interface for Velero, an open source too
 
 To use Velero-UI, you will need the following:
 
-* A Kubernetes cluster with Velero installed
-To install Velero, follow the [official Velero installation instructions](https://velero.io/docs/main/basic-install/).
+* A Kubernetes cluster with Velero installed. To install Velero, follow the [official Velero installation instructions](https://velero.io/docs/main/basic-install/).
 
 ## To run the Velero-UI web server locally:
 Pre-requisites:
 1. Python 3.6 or higher
 2. pip3
-3. install velero client. Follow the instructions [here](https://velero.io/docs/v1.10/basic-install/#install-the-cli)
+3. install velero client. Follow the instructions [here](https://velero.io/docs/v1.11/basic-install/#install-the-cli)
 4. Install velero on a kubernetes cluster
 5. Access to Kubernetes cluster. You will need to setup ~/.kube/config 
 
