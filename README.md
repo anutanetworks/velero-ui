@@ -25,8 +25,6 @@ Default credentials are:
 ```admin:admin```
 These credentials are stored as kubernetes secret in the target cluster. You can change the credentials from the settings page.
 
-```commandline
-
 ## Building docker image
 
 ```
