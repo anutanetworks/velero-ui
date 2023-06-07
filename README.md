@@ -44,6 +44,10 @@ Velero-UI provides the following features:
 * View backup logs and status
 * View restore logs and status
 * Schedule backups
+## Screenshots
+
+![image](https://github.com/anutanetworks/velero-ui/assets/11884022/36241e1f-4fe2-4775-be61-9d671d166d5c)
+
 
 ## Contributing
 Contributions to Velero-UI are welcome! If you find a bug or have a feature request, please open an issue or submit a pull request.
